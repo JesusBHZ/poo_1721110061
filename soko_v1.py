@@ -12,8 +12,8 @@ class Sokoban:
 
   mapa = [
 	[3,3,3,3,3,3,3,3,3],
-	[3,1,1,1,1,1,1,1,3],
-	[3,1,1,0,2,1,1,1,3],
+	[3,1,1,1,1,1,1,0,3],
+	[3,1,1,1,2,1,1,1,3],
 	[3,1,1,1,6,4,1,1,3],
 	[3,3,3,3,3,3,3,3,3]
       ]#Define el mapa de juego
@@ -112,26 +112,23 @@ class Sokoban:
   
   def moverIzquierda(self):
     #17.- Personaje, espacio 
-    if self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==1:
+    if self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==1:
         self.mapa[self.muneco_fila,self.muneco_columna-1]=0
         self.mapa[self.muneco_fila,self.muneco_columna]=1
-        self.mapa[self.muneco_fila,self.muneco_columna+1]=1
         self.muneco_columna-=1
     #18.- Personaje, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==4:
-        self.mapa[self.muneco_fila,self.muneco_columna-1]=0
+    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==4:
+        self.mapa[self.muneco_fila,self.muneco_columna-1]=5
         self.mapa[self.muneco_fila,self.muneco_columna]=1
-        self.mapa[self.muneco_fila,self.muneco_columna+1]=4
         self.muneco_columna-=1
     #19.-Personaje, caja, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==2 and self.mapa[self.muneco_fila,self.muneco_columna+2]==1 :
+    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==2 and self.mapa[self.muneco_fila,self.muneco_columna-2]==1 :
         self.mapa[self.muneco_fila,self.muneco_columna-1]=0
         self.mapa[self.muneco_fila,self.muneco_columna]=1
-        self.mapa[self.muneco_fila,self.muneco_columna+1]=2
-        self.mapa[self.muneco_fila,self.muneco_columna+2]=1
+        self.mapa[self.muneco_fila,self.muneco_columna-2]=2
         self.muneco_columna-=1
      #20.-Personaje, caja, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==2 and self.mapa[self.muneco_fila,self.muneco_columna+2]==4 :
+    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==2 and self.mapa[self.muneco_fila,self.muneco_columna+2]==4 :
         self.mapa[self.muneco_fila,self.muneco_columna-1]=0
         self.mapa[self.muneco_fila,self.muneco_columna]=1
         self.mapa[self.muneco_fila,self.muneco_columna+1]=2
@@ -343,7 +340,7 @@ class Sokoban:
    #49.- Personaje_meta
         #Caja
         #Espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==1:
+    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and self.mapa[self.muneco_fila+1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==1:
         self.mapa[self.muneco_fila,self.muneco_columna]=4
         self.mapa[self.muneco_fila+1,self.muneco_columna]=0
         self.mapa[self.muneco_fila+2,self.muneco_columna]=2
@@ -378,7 +375,7 @@ juego = Sokoban()#Crea un objeto para jugar
 juego.imprimirMapa()#Imprime el mapa
 
 while True:#Bucle para jugar N veces
-  intrucciones = "d-Derecha\na-Izquierda\nr-Arriba\nl-Abajo\nq-Salir" #Instrucciones
+  intrucciones = "d-Derecha\na-Izquierda\nr-Arriba\ns-Abajo\nq-Salir" #Instrucciones
   print(intrucciones)
   movimientos = input("mover a: ")#Lee el movimiento
   if movimientos == 'd': #si es d - mover a la derecha
@@ -390,9 +387,9 @@ while True:#Bucle para jugar N veces
   elif movimientos == 'r': #si es r - mover a arriba
     juego.moverArriba()#mueve el muñeco  a arriba
     juego.imprimirMapa()#imprime el mapa
-  elif movimientos == 'l': #si es l - mover a abajo
+  elif movimientos == 's': #si es l - mover a abajo
     juego.moverAbajo()#mueve el muñeco  a abajo
     juego.imprimirMapa()#imprime el mapa
   elif movimientos == "q":#si es q-salir
     print("Saliste del juego")#Imprmir mensaje
-  break #Rompe el ciclo while
+    break #Rompe el ciclo while
