@@ -46,6 +46,7 @@ class Sokoban:
         self.muneco_columna+=1
     #6.-Personaje, meta    
     elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==4:
+      
         self.mapa[self.muneco_fila,self.muneco_columna]=1
         self.mapa[self.muneco_fila,self.muneco_columna+1]=5
         self.muneco_columna+=1
@@ -372,15 +373,16 @@ while True:#Bucle para jugar N veces
   if movimientos == 'd': #si es d - mover a la derecha
     juego.moverDerecha()#mueve el muñeco  a la derecha
     juego.imprimirMapa()#imprime el mapa
-  elif movimientos == 'a': #si es a - mover a la izquierda
+  elif movimientos == 'i': #si es a - mover a la izquierda
     juego.moverIzquierda()#mueve el muñeco  a la izquierda
     juego.imprimirMapa()#imprime el mapa
   elif movimientos == 'r': #si es r - mover a arriba
     juego.moverArriba()#mueve el muñeco  a arriba
     juego.imprimirMapa()#imprime el mapa
-  elif movimientos == 's': #si es l - mover a abajo
+  elif movimientos == 'a': #si es l - mover a abajo
     juego.moverAbajo()#mueve el muñeco  a abajo
     juego.imprimirMapa()#imprime el mapa
   elif movimientos == "q":#si es q-salir
     print("Saliste del juego")#Imprmir mensaje
     break #Rompe el ciclo while
+

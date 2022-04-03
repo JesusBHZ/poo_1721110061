@@ -1,2 +1,2 @@
  language = "bash"
-run = ""
+run = "soko_v1.py"
