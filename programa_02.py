@@ -1,4 +1,4 @@
-letra = input("Dime tu letra:")
+"""letra = input("Dime tu letra:")
 a =[[0,1,1,1,0],
     [0,1,0,1,0],
     [0,1,1,1,0],
@@ -41,4 +41,5 @@ elif letra == 'u':
   for i in range(len(u)):
     print(u[i])
 else:
-  print("Introduce una letra valida")
+  print("Introduce una letra valida")"""
+
