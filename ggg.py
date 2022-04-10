@@ -300,7 +300,7 @@ class Sokoban:
     #37.- Espacio
         #Caja
         #Personaje_meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 1 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==5:
+    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==1:
       self.mapa[self.muneco_fila,self.muneco_columna]=4
       self.mapa[self.muneco_fila-1,self.muneco_columna]=0
       self.mapa[self.muneco_fila-2,self.muneco_columna]=2
@@ -351,7 +351,7 @@ while True:#Bucle para jugar N veces
     juego.limpiar_pantalla()
   elif movimientos == 'r': #si es r - mover a arriba
     juego.moverArriba()#mueve el muñeco  a arriba
-    juego.limpiar_pantalla()
+    #juego.limpiar_pantalla()
   elif movimientos == 'a': #si es l - mover a abajo
     juego.moverAbajo()#mueve el muñeco  a abajo
     juego.limpiar_pantalla()
