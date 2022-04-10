@@ -50,7 +50,8 @@ muneco_columna=result[1]
 #print(columns)
 
 contador = 0
-for r in texto:
+for r in hola:
+  print(r)
   if r == 0:
     contador+=1
   else:
