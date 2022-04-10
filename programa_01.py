@@ -23,28 +23,43 @@ matriz = []
 
 for i in hola:
   texto+=i.rstrip()
-print(texto)
+#print(texto)
 for k in range(len(texto)):
     texto[k] = int(texto[k])
 
-print()
-print(texto)
+#print()
+#print(texto)
 
 
 
 np_array = np.array(texto).reshape(m,columnas)
-print(np_array)
-print()
-print(np_array[3,2])
+#print(np_array)
+#print()
+#print(np_array[3,2])
 
 result = np.where(np_array == 0)
 rows, columns = np_array.shape
 muneco_fila=result[0]
 muneco_columna=result[1]
-print(muneco_fila)
-print(muneco_columna)
-print()
-print(m)
-print(columnas)
-print(rows)
-print(columns)
+#print(muneco_fila)
+#print(muneco_columna)
+#print()
+#print(m)
+#print(columnas)
+#print(rows)
+#print(columns)
+
+contador = 0
+for r in texto:
+  if r == 0:
+    contador+=1
+  else:
+    pass
+  if contador == 0:
+    complete = True
+  else:
+    complete = False
+  #return complete
+
+print(complete)
+    
