@@ -1,23 +1,15 @@
 
-"""fichero = open('archivo.txt', 'r')                  
-hola = fichero.read()
-texto=[]
-for i in hola:
-  texto+=i.rstrip()
-print(texto)"""
+
 import  numpy as np
 
 archivo = open('archivo.txt', 'r')
 hola = archivo.read()
 # Columnas
+
 with open("archivo.txt") as f:
     firstline = f.readline().rstrip()
 n=len(firstline)
-"""
-columnas = archivo.readline()
-n = len(archivo.readlines())
-print(n)"""
-#print(n)
+
 
 #Filas
 fichero = open('archivo.txt', 'r') 
@@ -40,16 +32,18 @@ for k in range(len(texto)):
 
 print()
 print(texto)
-"""
-matriz = []
-for i in range(n):
-  matriz.append([])
-  for a in texto:
-    matriz[i][a].append(texto)
-print(matriz)"""
+
 
 
 np_array = np.array(texto).reshape(m,n)
 print(np_array)
 print()
-print(np_array[0,5])
+print(np_array[3,2])
+
+result = np.where(np_array == 0)
+rows, columns = np_array.shape
+muneco_fila=result[0]
+muneco_columna=result[1]
+print()
+print(muneco_fila)
+print(muneco_columna)
