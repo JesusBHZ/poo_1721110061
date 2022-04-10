@@ -1,26 +1,23 @@
 
 
 import  numpy as np
-
-archivo = open('archivo.txt', 'r')
+nivel = 'archivo.txt'
+archivo = open(nivel, 'r')
 hola = archivo.read()
 # Columnas
-
-with open("archivo.txt") as f:
-    firstline = f.readline().rstrip()
-n=len(firstline)
+with open(nivel) as f:
+    colum = f.readline().rstrip()
+  
+columnas = len(colum)
 
 
 #Filas
-fichero = open('archivo.txt', 'r') 
+fichero = open(nivel, 'r') 
 fichero.readline()
 fichero.seek(0)
 m = len(fichero.readlines()) # devolvera 3
 
 
-
-fichero = open('archivo.txt', 'r') 
-hola = fichero.read()
 texto=[]
 matriz = []
 
@@ -35,7 +32,7 @@ print(texto)
 
 
 
-np_array = np.array(texto).reshape(m,n)
+np_array = np.array(texto).reshape(m,columnas)
 print(np_array)
 print()
 print(np_array[3,2])
@@ -44,6 +41,10 @@ result = np.where(np_array == 0)
 rows, columns = np_array.shape
 muneco_fila=result[0]
 muneco_columna=result[1]
-print()
 print(muneco_fila)
 print(muneco_columna)
+print()
+print(m)
+print(columnas)
+print(rows)
+print(columns)

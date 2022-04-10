@@ -1,15 +1,17 @@
-archivo = open('archivo.txt', 'r')
+a = 'archivo.txt'
+archivo = open(a, 'r')
 hola = archivo.read()
 # Columnas
-with open("archivo.txt") as f:
+with open(a) as f:
     firstline = f.readline().rstrip()
 print(len(firstline))
 #print(n)
 
 #Filas
-fichero = open('archivo.txt', 'r') 
+fichero = open(a, 'r') 
 fichero.readline()
 fichero.seek(0)
-m = len(fichero.readlines()) # devolvera 3
+m = len(fichero.readlines())
+print(m)# devolvera 3
 
 
