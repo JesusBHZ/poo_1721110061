@@ -428,22 +428,33 @@ class Sokoban:
       
   def checkLevelComplete(self):
     contador = 0
-    self.printMap()
-    self.loadFile()
+    for r in hola:
+    print(r)
+    if r == 0:
+      contador+=1
+    else:
+      pass
+    if contador == 0:
+      complete = True
+    else:
+      complete = False
+  return complete
+    """
     self.findColumnasFilas()
+    self.loadFile()
     self.convertirFile()
+    contador = 0
     for j in range(self.filas):
       for i in range(self.columnas):
         if self.mapa[j][i] == 2:
             contador+=1 
         else:
           pass
-    print(contador)
     if contador == 0:
       self.complete = True
     else:
-      self.complete = False  
-    print(self.complete)
+      self.complete = False 
+    return self.complete"""
     
   def play(self):
     self.loadFile()
@@ -454,7 +465,9 @@ class Sokoban:
       intrucciones = " d - Derecha\n i - Izquierda\n r - Arriba\n a - Abajo\n q - Salir" #Instrucciones
       print(intrucciones)
       print()
+
       
+
      
       self.printMap()
       movimientos = input(" Mover a: ")#Lee el movimiento
@@ -474,8 +487,6 @@ class Sokoban:
         print(" Saliste del juego")#Imprmir mensaje
         break #Rompe el ciclo while
 
-
 juego = Sokoban()#Crea un objeto para jugar
 juego.play()
-
 

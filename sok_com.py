@@ -1,420 +1,186 @@
 """
-Author: Jesus Bautista Hernandez
-Grupo: TI22
-      #0 = muñeco - 
-      #1 = espacio
-      #2 = caja - 
-      #3 = paredes
-      #4 = metas
-      #5 = muñeco_meta
-      #6 = caja_meta
-
-      intrucciones
-      d-Derecha
-      i-Izquierda
-      a-Arriba
-      h-Abajo
-      q-Salir
+    Author: Salvador Hernandez Mendoza
+    Date: 30/03/2022
+    Description: Sokoban game template
+    0 - Character
+    1 - Floor
+    2 - Box
+    3 - Wall
+    4 - Target
+    5 - Box_Target
+    6 - Character_Target
 """
-import platform
-import os
-import  numpy as np
+
+
 class Sokoban:
-  mapa = np.loadtxt('level2.txt')
-  mapa = np.array(mapa)
-  result = np.where(mapa == 0)
-  rows, columns = mapa.shape
-  muneco_fila=result[0]
-  muneco_columna=result[1]
-  def __init__(self):
+    """_summary_: Sokoban class"""
+
+    map = []
+    character_row = 0
+    character_col = 0
+
+    def __init__(self):
         """_summary_: Constructor"""
         pass
-  def loadMapa(self):
-    self.mapa = np.loadtxt('level2.txt', dtype=int)
-     
-  def printMap(self):
-    """_summary_: Print the map"""
-    for j in range(self.rows):
-      for i in range(self.columns):
-        if self.mapa[j][i] == 0:
-            #Si encuentra un numero 1 -  espacio
-            #for a in range(len(self.mapa[0])):
-            print("🤖", end = "")#Cambiar un 1 por un ""
-        elif self.mapa[j][i] == 1:
-            #Si encuentra un numero 1 -  espacio
-            #for a in range(len(self.mapa[0])):
-            print("  ", end = "")#Cambiar un 1 por un ""
-        elif self.mapa[j][i] == 2: #3-pared
-            #for a in range(len(self.mapa)):
-            print("🧰", end = "")#Cambia un 3 por un simbolo  
-        elif self.mapa[j][i] == 3: #3-pared
-            #for a in range(len(self.mapa)):
-            print("🔳", end = "")#Cambia un 3 por un simbolo
-        elif self.mapa[j][i] == 4: #3-pared
-            #for a in range(len(self.mapa)):
-            print("⛳", end = "")#Cambia un 3 por un simbolo  
-        elif self.mapa[j][i] == 5: #3-pared
-            #for a in range(len(self.mapa)):
-            print("🔰", end = "")#Cambia un 3 por un simbolo
-        elif self.mapa[j][i] == 6: #3-pared
-            #for a in range(len(self.mapa)):
-            print("🏆", end = "")#Cambia un 3 por un simbolo       
-        else:
-            print(self.mapa[j][i], end=" ")
-      print()
-    print() #Imprime una linea vacia   
-  def findCharacterPosition(self):
-    mapa = np.loadtxt('prueba.txt',dtype=int)
-    mapa = np.array(mapa)
-    
 
-  def limpiar_pantalla(self):
-    if platform.system()=='Windows':
-      os.system('cls')
-    else:
-      os.system('clear')
-    
-  def moverDerecha(self):
-    #5.- Personaje, espacio 
-    if self.mapa[self.muneco_fila,self.muneco_columna]== 0 and self.mapa[self.muneco_fila,self.muneco_columna+1]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=0
-      self.muneco_columna+=1
-   #6.-Personaje, meta    
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=5
-      self.muneco_columna+=1
-    #7.-Personaje, caja, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==2 and self.mapa[self.muneco_fila,self.muneco_columna+2]==1 :
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna+2]=2
-      self.muneco_columna+=1
-    #8.-Personaje, caja, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==2 and self.mapa[self.muneco_fila,self.muneco_columna+2]==4 :
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna+2]=6
-      self.muneco_columna+=1
-    #9.-Personaje, caja_meta, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==6 and self.mapa[self.muneco_fila,self.muneco_columna+2]==1 :
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna+2]=2
-      self.muneco_columna+=1
-    #10.-Personaje, caja_meta, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==6 and self.mapa[self.muneco_fila,self.muneco_columna+2]==4 :
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna+2]=6
-      self.muneco_columna+=1
-    #11.-Personaje_meta, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=0
-      self.muneco_columna+=1
-    #12.-Personaje_meta, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=5
-      self.muneco_columna+=1
-    #13.-Personaje_meta, caja, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==2 and self.mapa[self.muneco_fila,self.muneco_columna+2]==1 :
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna+2]=2
-      self.muneco_columna+=1
-    #14.-Personaje_meta, caja, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==2 and self.mapa[self.muneco_fila,self.muneco_columna+2]==4 :
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna+2]=6
-      self.muneco_columna+=1
+    def loadMap(self):
+        """_summary_: Load the map from a file"""
+        file = open("level0.sokoban", "r")  # Open the file
+        # TODO: read the file and load the map
+        self.map = [
+            [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            [3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+            [3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+            [3, 1, 1, 0, 1, 2, 1, 4, 1, 1, 3],
+            [3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+            [3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3],
+            [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+        ]
 
-    #15.-Personaje_meta, caja_meta, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==6 and self.mapa[self.muneco_fila,self.muneco_columna+2]==1 :
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna+2]=2
-      self.muneco_columna+=1
-      #16.-Personaje_meta, caja_meta, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna+1]==6 and self.mapa[self.muneco_fila,self.muneco_columna+2]==4 :
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna+1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna+2]=6
-      self.muneco_columna+=1
+    def printMap(self):
+        """_summary_: Print the map"""
+        # TODO: Print the map
+        for row in self.map:  # For each row in map
+            print(row)  # Print the row
 
-      
-  def moverIzquierda(self):
-    if self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.muneco_columna-=1
-    #18.- Personaje, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.muneco_columna-=1
-    #19.-Personaje, caja, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==2 and self.mapa[self.muneco_fila,self.muneco_columna-2]==1 :
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna-2]=2
-      self.muneco_columna-=1
-     #20.-Personaje, caja, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==2 and self.mapa[self.muneco_fila,self.muneco_columna-2]==4 :
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna-2]=6
-      self.muneco_columna-=1
-    #21.-Personaje, caja_meta, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==6 and self.mapa[self.muneco_fila,self.muneco_columna-2]==1 :
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna-2]=2
-      self.muneco_columna-=1
-    #22.-Personaje, caja_meta, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==6 and self.mapa[self.muneco_fila,self.muneco_columna-2]==4 :
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila,self.muneco_columna-2]=6
-      self.muneco_columna-=1
-    #23.-Personaje_meta, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.muneco_columna-=1
-    #24.-Personaje_meta, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.muneco_columna-=1
-    #25.-Personaje_meta, caja, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==2 and self.mapa[self.muneco_fila,self.muneco_columna-2]==1 :
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna-2]=2
-      self.muneco_columna-=1
-    #26.-Personaje_meta, caja, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]==5 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==2 and self.mapa[self.muneco_fila,self.muneco_columna-2]==4 :
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=0
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna-2]=6
-      self.muneco_columna-=1
-    #27.-Personaje_meta, caja_meta, espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==6 and self.mapa[self.muneco_fila,self.muneco_columna-2]==1 :
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna-2]=2
-      self.muneco_columna-=1
-    #28.-Personaje_meta, caja_meta, meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila,self.muneco_columna-1]==6 and self.mapa[self.muneco_fila,self.muneco_columna-2]==4 :
-      self.mapa[self.muneco_fila,self.muneco_columna-1]=5
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila,self.muneco_columna-2]=6
-      self.muneco_columna-=1
+    def findCharacterPosition(self):
+        """_summary_: Find the character position"""
+        for row in range(len(self.map)):  # Get rows number on the map
+            for col in range(len(self.map[row])):  # Get columns number on the map
+                if self.map[row][col] == 0:  # If the character is found
+                    self.character_row = row  # Update the character row position
+                    self.character_col = col  # Update the character col position
 
-  def moverArriba(self):
-    #29.- Espacio
-        #Personaje 
-    if self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=0
-      self.muneco_fila-=1
-    #30.- Meta
-        #Personaje 
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=5
-      self.muneco_fila-=1
-    #31.- Espacio
-        #Caja
-        #Personaje
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=0
-      self.mapa[self.muneco_fila-2,self.muneco_columna]=2
-      self.muneco_fila-=1
-    #32.- Meta
-        #Caja
-        #Personaje
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=0
-      self.mapa[self.muneco_fila-2,self.muneco_columna]=6
-      self.muneco_fila-=1
-    #33.- Espacio
-        #Caja_meta
-        #Personaje
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==6 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=5
-      self.mapa[self.muneco_fila-2,self.muneco_columna]=2
-      self.muneco_fila-=1
-    #34.- Meta
-        #Caja_meta
-        #Personaje
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==6 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=5
-      self.mapa[self.muneco_fila-2,self.muneco_columna]=6
-      self.muneco_fila-=1
-    #35.- Espacio
-        #Personaje_meta
-    if self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=0
-      self.muneco_fila-=1
-   #36.- Meta
-        #Personaje_meta
-    if self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=5
-      self.muneco_fila-=1
-    #37.- Espacio
-        #Caja
-        #Personaje_meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 1 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==5:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=0
-      self.mapa[self.muneco_fila-2,self.muneco_columna]=2
-      self.muneco_fila-=1
-    #38.- Meta
-        #Caja
-        #Personaje_meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=0
-      self.mapa[self.muneco_fila-2,self.muneco_columna]=6
-      self.muneco_fila-=1     
-    #39.- Espacio
-        #Caja_meta
-        #Personaje_meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==6 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=5
-      self.mapa[self.muneco_fila-2,self.muneco_columna]=2
-      self.muneco_fila-=1         
-    #40.- Meta
-        #Caja_meta
-        #Personaje_meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila-1,self.muneco_columna]==6 and  self.mapa[self.muneco_fila-2,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila-1,self.muneco_columna]=5
-      self.mapa[self.muneco_fila-2,self.muneco_columna]=6
-      self.muneco_fila-=1         
-        
-  def moverAbajo(self):
-    #41.- Espacio
-        #Personaje 
-    if self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=0
-      self.muneco_fila+=1 
-    #42.- Personaje
-        #Meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=5
-      self.muneco_fila+=1  
-   #43.- Personaje
-        #Caja
-        #Espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=0
-      self.mapa[self.muneco_fila+2,self.muneco_columna]=2
-      self.muneco_fila+=1       
-   #44.- Personaje
-        #Caja
-        #Meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=0
-      self.mapa[self.muneco_fila+2,self.muneco_columna]=6
-      self.muneco_fila+=1 
-   #45.- Personaje
-        #Caja_meta
-        #Espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==6 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=5
-      self.mapa[self.muneco_fila+2,self.muneco_columna]=2
-      self.muneco_fila+=1 
-   #46.- Personaje
-        #Caja_meta
-        #Meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 0 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==6 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=1
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=5
-      self.mapa[self.muneco_fila+2,self.muneco_columna]=6
-      self.muneco_fila+=1       
-    #47.- Personaje_meta
-        #Espacio
-    if self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=0
-      self.muneco_fila+=1         
-    #48.- Personaje_meta
-        #Meta
-    if self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=5
-      self.muneco_fila+=1  
-   #49.- Personaje_meta
-        #Caja
-        #Espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=0
-      self.mapa[self.muneco_fila+2,self.muneco_columna]=2
-      self.muneco_fila+=1            
-    #50.- Personaje_meta
-        #Caja
-        #Meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==2 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=0
-      self.mapa[self.muneco_fila+2,self.muneco_columna]=6
-      self.muneco_fila+=1        
-     #51.- Personaje_meta
-        #Caja_meta
-        #Espacio
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==6 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==1:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=5
-      self.mapa[self.muneco_fila+2,self.muneco_columna]=2
-      self.muneco_fila+=1         
-    #52.- Personaje_meta
-        #Caja_meta
-        #Meta
-    elif self.mapa[self.muneco_fila,self.muneco_columna]== 5 and  self.mapa[self.muneco_fila+1,self.muneco_columna]==6 and  self.mapa[self.muneco_fila+2,self.muneco_columna]==4:
-      self.mapa[self.muneco_fila,self.muneco_columna]=4
-      self.mapa[self.muneco_fila+1,self.muneco_columna]=5
-      self.mapa[self.muneco_fila+2,self.muneco_columna]=6
-      self.muneco_fila+=1  
-      
-juego = Sokoban()#Crea un objeto para jugar
-while True:#Bucle para jugar N veces
-  intrucciones = "d-Derecha\ni-Izquierda\nr-Arriba\na-Abajo\nq-Salir" #Instrucciones
-  print(intrucciones)
-  juego.printMap()#Imprime el mapa
-  movimientos = input("mover a: ")#Lee el movimiento
-  if movimientos == 'd':#si es d - mover a la derecha
-    juego.moverDerecha()#mueve el muñeco  a la derecha
-    juego.limpiar_pantalla()
-  elif movimientos == 'i': #si es a - mover a la izquierda
-    juego.moverIzquierda()#mueve el muñeco  a la izquierda
-    juego.limpiar_pantalla()
-  elif movimientos == 'r': #si es r - mover a arriba
-    juego.moverArriba()#mueve el muñeco  a arriba
-    juego.limpiar_pantalla()
-  elif movimientos == 'a': #si es l - mover a abajo
-    juego.moverAbajo()#mueve el muñeco  a abajo
-    juego.limpiar_pantalla()
-  elif movimientos == "q":#si es q-salir
-    print("Saliste del juego")#Imprmir mensaje
-    break #Rompe el ciclo while
+    def moveLeft(self):
+        """_summary_: Move the character to the left rules"""
+        # 0. character, floor
+        if (
+            self.map[self.character_row][self.character_col] == 0
+            and self.map[self.character_row][self.character_col - 1] == 1
+        ):  # If the character is on the floor and the next position is a floor
+            self.map[self.character_row][self.character_col] = 1  # put floor character last position
+            self.map[self.character_row][self.character_col - 1] = 0  # move the character to next position
+            self.character_col = self.character_col - 1  # update the character position
+        # TODO: 1. character, target
+        # TODO: 2. character, box, floor
+        # TODO: 3. character, box, target
+        # TODO: 4. character, box_target, floor
+        # TODO: 5. character, box_target, target
+        # TODO: 6. character_taget, floor
+        # TODO: 7. character_taget, target
+        # TODO: 8. character_taget, box, floor
+        # TODO: 9. character_taget, box, target
+        # TODO: 10. character_taget, box_target, floor
+        # TODO: 11. character_taget, box_target, target
 
-    
+    def moveRight(self):
+        """_summary_: Move the character to the right rules"""
+        # 0. character, floor
+        if (
+            self.map[self.character_row][self.character_col] == 0
+            and self.map[self.character_row][self.character_col + 1] == 1
+        ):  # If the character is on the floor and the next position is a floor
+            self.map[self.character_row][self.character_col] = 1  # put floor character last position
+            self.map[self.character_row][self.character_col + 1] = 0  # move the character to next position
+            self.character_col = self.character_col + 1  # update the character position
+        # TODO: 1. character, target
+        # TODO: 2. character, box, floor
+        # TODO: 3. character, box, target
+        # TODO: 4. character, box_target, floor
+        # TODO: 5. character, box_target, target
+        # TODO: 6. character_taget, floor
+        # TODO: 7. character_taget, target
+        # TODO: 8. character_taget, box, floor
+        # TODO: 9. character_taget, box, target
+        # TODO: 10. character_taget, box_target, floor
+        # TODO: 11. character_taget, box_target, target
+
+    def moveUp(self):
+        """_summary_: Move the character up rules"""
+        # 0. character, floor
+        if (
+            self.map[self.character_row][self.character_col] == 0
+            and self.map[self.character_row - 1][self.character_col] == 1
+        ):  # If the character is on the floor and the next position is a floor
+            self.map[self.character_row][self.character_col] = 1  # put floor character last position
+            self.map[self.character_row - 1][self.character_col] = 0  # move the character to next position
+            self.character_row = self.character_row - 1  # update the character position
+        # TODO: 1. character, target
+        # TODO: 2. character, box, floor
+        # TODO: 3. character, box, target
+        # TODO: 4. character, box_target, floor
+        # TODO: 5. character, box_target, target
+        # TODO: 6. character_taget, floor
+        # TODO: 7. character_taget, target
+        # TODO: 8. character_taget, box, floor
+        # TODO: 9. character_taget, box, target
+        # TODO: 10. character_taget, box_target, floor
+        # TODO: 11. character_taget, box_target, target
+
+    def moveDown(self):
+        """_summary_: Move the character down rules"""
+        # 0. character, floor
+        if (
+            self.map[self.character_row][self.character_col] == 0
+            and self.map[self.character_row + 1][self.character_col] == 1
+        ):  # If the character is on the floor and the next position is a floor
+            self.map[self.character_row][self.character_col] = 1  # put floor character last position
+            self.map[self.character_row + 1][self.character_col] = 0  # move the character to next position
+            self.character_row = self.character_row + 1  # update the character position
+        # TODO: 1. character, target
+        # TODO: 2. character, box, floor
+        # TODO: 3. character, box, target
+        # TODO: 4. character, box_target, floor
+        # TODO: 5. character, box_target, target
+        # TODO: 6. character_taget, floor
+        # TODO: 7. character_taget, target
+        # TODO: 8. character_taget, box, floor
+        # TODO: 9. character_taget, box, target
+        # TODO: 10. character_taget, box_target, floor
+        # TODO: 11. character_taget, box_target, target
+
+    def checkLevelComplete(self):
+        """_summary_: Check if level is complete
+        Returns:
+            complete(bool): Return if level is complete or not
+        """
+        # TODO: Check if the level is complete
+        # If return True, the level is complete
+        # If return False, the level is not complete
+        complete = False
+        return complete
+
+    def play(self):
+        """_summary_: Play the game"""
+        self.loadMap()  # Call the map
+        self.findCharacterPosition()  # Update the character position for new map
+        instructions = "d-Right, a-Left, w-Up, s-Down"  # Instructions
+        print(instructions)  # Print the instructions
+        while True:  # Infinite loop
+            complete = self.checkLevelComplete()  # Check if the level is complete
+            if complete == True:  # If the level is complete
+                print("Level Complete")  # Print the level complete
+                input("Press Enter to continue...")  # Wait for the user to press enter
+                self.loadMap()  # Call the map
+                self.findCharacterPosition()  # Update the character position for new map
+            self.printMap()  # Call the printMap method
+            print(
+                "Character position: [{},{}]".format(
+                    self.character_row, self.character_col
+                )
+            )  # Print the character position
+            move = input("Select move: ")  # Ask for the move
+            if move == "a":  # If the move is left
+                self.moveLeft()  # Call moveLeft rules
+            elif move == "d":  # If the move is right
+                self.moveRight()  # Call moveRight rules
+            elif move == "w":  # If the move is up
+                self.moveUp()  # Call moveUp rules
+            elif move == "s":  # If the move is down
+                self.moveDown()  # Call moveDown rules
+            elif move == "q":  # If the move is quit
+                break  # Game quit
+
+
+game = Sokoban()  # Create a object from Sokoban class
+game.play()  # Fun Fun Fun ;)
