@@ -35,7 +35,11 @@ matriz = []
 for i in hola:
   texto+=i.rstrip()
 print(texto)
+for k in range(len(texto)):
+    texto[k] = int(texto[k])
 
+print()
+print(texto)
 """
 matriz = []
 for i in range(n):
@@ -45,7 +49,7 @@ for i in range(n):
 print(matriz)"""
 
 
-np_array = np.array(texto, dtype=np.int64).reshape(m,n)
+np_array = np.array(texto).reshape(m,n)
 print(np_array)
 print()
 print(np_array[0,5])
