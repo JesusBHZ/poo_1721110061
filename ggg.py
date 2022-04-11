@@ -25,8 +25,9 @@ class Sokoban:
   columnas = 0
   filas = 0
   mapa = []
-  complete = False
-  nivel = 'level2.txt'
+  complet = False
+  nivel = 'level0.txt'
+
 
   def __init__(self):
         """_summary_: Constructor"""
@@ -66,35 +67,42 @@ class Sokoban:
 
   def printMap(self):
     """_summary_: Print the map"""
+    contador = 0
     for j in range(self.filas):
       for i in range(self.columnas):
         if self.mapa[j][i] == 0:
             #Si encuentra un numero 1 -  espacio
             #for a in range(len(self.mapa[0])):
-            print("🤖", end = "")#Cambiar un 1 por un ""
+          print("🤖", end = "")#Cambiar un 1 por un ""
         elif self.mapa[j][i] == 1:
             #Si encuentra un numero 1 -  espacio
             #for a in range(len(self.mapa[0])):
-            print("  ", end = "")#Cambiar un 1 por un ""
+          print("  ", end = "")#Cambiar un 1 por un ""
         elif self.mapa[j][i] == 2: #3-pared
             #for a in range(len(self.mapa)):
-            print("🧰", end = "")#Cambia un 3 por un simbolo  
+          contador+=1
+          print("🧰", end = "")#Cambia un 3 por un simbolo  
         elif self.mapa[j][i] == 3: #3-pared
             #for a in range(len(self.mapa)):
-            print("🔳", end = "")#Cambia un 3 por un simbolo
+          print("🔳", end = "")#Cambia un 3 por un simbolo
         elif self.mapa[j][i] == 4: #3-pared
             #for a in range(len(self.mapa)):
-            print("⛳", end = "")#Cambia un 3 por un simbolo  
+          print("⛳", end = "")#Cambia un 3 por un simbolo  
         elif self.mapa[j][i] == 5: #3-pared
             #for a in range(len(self.mapa)):
-            print("🔰", end = "")#Cambia un 3 por un simbolo
+          print("🔰", end = "")#Cambia un 3 por un simbolo
         elif self.mapa[j][i] == 6: #3-pared
             #for a in range(len(self.mapa)):
-            print("🏆", end = "")#Cambia un 3 por un simbolo       
+          print("🏆", end = "")#Cambia un 3 por un simbolo       
         else:
-            print(self.mapa[j][i], end=" ")
+          print(self.mapa[j][i], end=" ")
       print()
-    print() #Imprime una linea vacia 
+    print() #Imprime una linea vacia
+
+    if contador == 0:
+      self.complet = True
+    else: 
+      self.complet = False
     
   def limpiar_pantalla(self):
     if platform.system()=='Windows':
@@ -426,49 +434,33 @@ class Sokoban:
       self.mapa[self.muneco_fila+2,self.muneco_columna]=6
       self.muneco_fila+=1
       
-  def checkLevelComplete(self):
-    contador = 0
-    for r in hola:
-    print(r)
-    if r == 0:
-      contador+=1
-    else:
-      pass
-    if contador == 0:
-      complete = True
-    else:
-      complete = False
-  return complete
-    """
-    self.findColumnasFilas()
-    self.loadFile()
-    self.convertirFile()
-    contador = 0
-    for j in range(self.filas):
-      for i in range(self.columnas):
-        if self.mapa[j][i] == 2:
-            contador+=1 
-        else:
-          pass
-    if contador == 0:
-      self.complete = True
-    else:
-      self.complete = False 
-    return self.complete"""
-    
+
   def play(self):
     self.loadFile()
     self.findColumnasFilas()
     self.convertirFile()
     self.findPosition()
     while True:#Bucle para jugar N veces
+      print(" ---- Nivel Actual: "+self.nivel+" ----")
       intrucciones = " d - Derecha\n i - Izquierda\n r - Arriba\n a - Abajo\n q - Salir" #Instrucciones
       print(intrucciones)
       print()
 
-      
-
-     
+      level = 0
+      if self.complet == True:
+        print("Level Complete")  # Print the level complete
+        input("Press Enter to continue...")  
+        level+=1
+        if level == 1: 
+          nivel_nuevo = 'level1.txt'
+        elif level == 2:
+          nivel_nuevo = 'level2.txt'
+        self.nivel = nivel_nuevo
+        self.loadFile()
+        self.findColumnasFilas()
+        self.convertirFile()
+        self.findPosition()
+        
       self.printMap()
       movimientos = input(" Mover a: ")#Lee el movimiento
       if movimientos == 'd':#si es d - mover a la derecha
